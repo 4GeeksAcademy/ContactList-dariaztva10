@@ -1,0 +1,21 @@
+.imagenContacto{
+    width: 17.5vh;
+    height: 17.5vh;
+    margin: 2vh;
+}
+
+.cajaContacto{
+    display: flex;
+    justify-content: center;
+}
+.text-center{
+    margin: 5vh;
+}
+.botonEditar{
+    margin: 1vh;
+}
+
+.cardBody{
+    text-align: start;
+    padding: 2vh;
+}

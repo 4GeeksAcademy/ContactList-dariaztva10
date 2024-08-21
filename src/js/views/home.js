@@ -1,15 +1,43 @@
-import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
-import "../../styles/home.css";
+import React, { useContext } from "react"; // Importa React y useContext para acceder al contexto
+import "../../styles/home.css"; // Importa el archivo de estilos específico para este componente
+import { useNavigate } from "react-router-dom"; // Importa useNavigate para cambiar de ruta
+import { Context } from "../store/appContext"; // Importa el Context para acceder al estado global y las acciones
+import ContactCard from "../component/contactCard"; // Importa el componente ContactCard
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
-	</div>
-);
+// Define el componente funcional Home
+export const Home = () => {
+    // Obtiene el store y las acciones del contexto global
+    const { store, actions } = useContext(Context);
+    
+    // Inicializa useNavigate para navegar a diferentes rutas
+    const navigate = useNavigate();
+
+    // Verifica si store.contacts está definido y es un array
+    if (!Array.isArray(store.contacts)) {
+        return <div>No hay contactos disponibles.</div>; // Muestra un mensaje si no hay contactos
+    }
+
+    // Función para eliminar un contacto
+    const deleteItems = (id) => {
+        actions.deleteContact(id); // Llama a la acción para eliminar el contacto con el ID proporcionado
+    };
+
+    // Función para editar un contacto
+    const editarTexto = (id) => {
+        navigate(`/edit/${id}`); // Navega a la ruta de edición del contacto con el ID proporcionado
+    };
+
+    return (
+        <div className="text-center mt-5">
+            {/* Mapea todos los contactos y renderiza un ContactCard para cada uno */}
+            {store.contacts.map((contacto, index) => (
+                <ContactCard
+                    key={index} // Usa el índice como clave para cada ContactCard
+                    contacto={contacto} // Pasa el contacto actual como prop
+                    onDelete={() => deleteItems(contacto.id)} // Pasa la función para eliminar el contacto como prop
+                    onEdit={() => editarTexto(contacto.id)} // Pasa la función para editar el contacto como prop
+                />
+            ))}
+        </div>
+    );
+};
