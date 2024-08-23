@@ -2,12 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom"; //useParams sirve para obtener parámetros de la URL
 import { Context } from "../store/appContext"; // El Context sirve para acceder a las acciones y el estado global
 import "../../styles/demo.css";
+import { useNavigate } from "react-router-dom";
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context); // Accede al store y a las acciones del contexto global
 	const { contactId } = useParams(); // Obtiene el ID del contacto desde la URL si existe
+	const navigate = useNavigate();
 	const [contact, setContact] = useState({
-		fullName: "",
+		name: "",
 		email: "",
 		address: "",
 		phone: ""
@@ -31,13 +33,15 @@ export const Demo = () => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
 		if (contactId) {
 			// Si existe el ID, está editando un contacto
-			actions.updateContact(contactId, contact); // Llamamos a la acción para actualizar el contacto
+			actions.updateContact(contactId, contact, navigate); // Llamamos a la acción para actualizar el contacto
 		} else {
 			// Si no existe el ID, está creando un nuevo contacto
 			actions.addContact(contact); // Llamamos a la acción para agregar un nuevo contacto
 		}
+		navigate("/"); // Redirige de vuelta a la página principal después de guardar
 	};
 
 	return (
@@ -49,9 +53,9 @@ export const Demo = () => {
 						type="text"
 						className="form-control"
 						placeholder="Enter your full name"
-						value={contact.fullName}
+						value={contact.name}
 						onChange={handleInputChange}
-						name="fullName"
+						name="name"
 						id="validationCustom01"
 						required />
 					<div className="invalid-feedback">
@@ -60,7 +64,7 @@ export const Demo = () => {
 				</div>
 
 				<div className="col-md-12">
-					<label for="validationCustomUsername" className="form-label">Email</label>
+					<label htmlFor="validationCustomUsername" className="form-label">Email</label>
 					<div className="input-group has-validation">
 						<span className="input-group-text" id="inputGroupPrepend">@</span>
 						<input
@@ -80,7 +84,7 @@ export const Demo = () => {
 				</div>
 
 				<div className="col-md-12">
-					<label for="validationCustom03" className="form-label">Address</label>
+					<label htmlFor="validationCustom03" className="form-label">Address</label>
 					<input
 						type="text"
 						className="form-control"
@@ -96,7 +100,7 @@ export const Demo = () => {
 				</div>
 
 				<div className="col-md-12">
-					<label for="validationCustom05" className="form-label">Phone</label>
+					<label htmlFor="validationCustom05" className="form-label">Phone</label>
 					<input
 						type="text"
 						className="form-control"

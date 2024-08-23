@@ -8,13 +8,16 @@ import ContactCard from "../component/contactCard"; // Importa el componente Con
 export const Home = () => {
     // Obtiene el store y las acciones del contexto global
     const { store, actions } = useContext(Context);
-    
+
     // Inicializa useNavigate para navegar a diferentes rutas
     const navigate = useNavigate();
 
+
+
+
     // Verifica si store.contacts está definido y es un array
-    if (!Array.isArray(store.contacts)) {
-        return <div>No hay contactos disponibles.</div>; // Muestra un mensaje si no hay contactos
+    if (!Array.isArray(store.contacts) || store.contacts.length === 0) {
+        return <div className="sinContactos">No hay contactos disponibles.</div>;
     }
 
     // Función para eliminar un contacto
@@ -24,20 +27,22 @@ export const Home = () => {
 
     // Función para editar un contacto
     const editarTexto = (id) => {
-        navigate(`/edit/${id}`); // Navega a la ruta de edición del contacto con el ID proporcionado
+        navigate(`/demo/${id}`); // Navega a la ruta de edición del contacto con el ID proporcionado
     };
 
     return (
-        <div className="text-center mt-5">
-            {/* Mapea todos los contactos y renderiza un ContactCard para cada uno */}
-            {store.contacts.map((contacto, index) => (
-                <ContactCard
-                    key={index} // Usa el índice como clave para cada ContactCard
-                    contacto={contacto} // Pasa el contacto actual como prop
-                    onDelete={() => deleteItems(contacto.id)} // Pasa la función para eliminar el contacto como prop
-                    onEdit={() => editarTexto(contacto.id)} // Pasa la función para editar el contacto como prop
-                />
-            ))}
+        <div className="contenedor row">
+            <div className="contactero col-12 mt-5">
+                {/* Mapea todos los contactos y renderiza un ContactCard para cada uno */}
+                {store.contacts.map((contacto, index) => (
+                    <ContactCard
+                        key={index} // Usa el índice como clave para cada ContactCard
+                        contacto={contacto} // Pasa el contacto actual como prop
+                        onDelete={() => deleteItems(contacto.id)} // Pasa la función para eliminar el contacto como prop
+                        onEdit={() => editarTexto(contacto.id)} // Pasa la función para editar el contacto como prop
+                    />
+                ))}
+            </div>
         </div>
     );
 };

@@ -1,21 +1,34 @@
-.imagenContacto{
+.sinContactos{
+    text-align: center;
+}
+
+.imagenContacto {
     width: 17.5vh;
     height: 17.5vh;
     margin: 2vh;
 }
 
-.cajaContacto{
+.cajaContacto {
     display: flex;
     justify-content: center;
+    width: 70vh;
+
 }
-.text-center{
+
+.text-center {
     margin: 5vh;
 }
-.botonEditar{
+
+.botonEditar {
     margin: 1vh;
 }
 
-.cardBody{
+.cardBody {
     text-align: start;
     padding: 2vh;
+}
+
+.contactero {
+    display: grid;
+    justify-content: center;
 }

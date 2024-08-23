@@ -4,10 +4,10 @@ import React from "react"; // Importa React para poder usar JSX y componentes de
 const ContactCard = ({ contacto, onDelete, onEdit }) => {
     return (
         // Contenedor principal del componente
-        <div className="card mb-3" style={{ maxWidth: "540px" }}>
+        <div className="cardPrincipal mb-3 row-12" style={{ maxWidth: "540px" }}>
             {/* Contenedor para la información del contacto */}
-            <div className="cajaContacto row g-0 row">
-                
+            <div className="cajaContacto col-12 g-0">
+
                 {/* Sección para la imagen del contacto */}
                 <div className="imagenContacto col-md-4">
                     <img
@@ -20,18 +20,18 @@ const ContactCard = ({ contacto, onDelete, onEdit }) => {
                 {/* Sección para los detalles del contacto */}
                 <div className="cardBody col-5">
                     {/* Nombre completo del contacto */}
-                    <h5 className="fullnameContacto card-title">{contacto.fullName}</h5>
-                    
+                    <h5 className="fullnameContacto card-title">{contacto.name}</h5>
+
                     {/* Dirección del contacto */}
                     <p className="addressContacto card-text">
                         <i className="fas fa-map-marker-alt"></i> {contacto.address}
                     </p>
-                    
+
                     {/* Teléfono del contacto */}
                     <p className="phoneContacto card-text">
                         <i className="fas fa-phone"></i> {contacto.phone}
                     </p>
-                    
+
                     {/* Correo electrónico del contacto */}
                     <p className="emailContacto card-text">
                         <i className="fas fa-at"></i> {contacto.email}
@@ -44,7 +44,7 @@ const ContactCard = ({ contacto, onDelete, onEdit }) => {
                     <button className="botonEditar" onClick={onEdit}>
                         <i className="fas fa-user-edit"></i>
                     </button>
-                    
+
                     {/* Botón para borrar el contacto */}
                     <button className="botonBorrar" onClick={onDelete}>
                         <i className="fas fa-times-circle"></i>
